@@ -1,0 +1,43 @@
+{% extends 'layout/master.html' %}
+{% load static %}
+{% block head %}
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- both below syntax are same use any -->
+<!-- <link rel="stylesheet" href="{% static 'learn/css/style.css' %}"> -->
+<link rel="stylesheet" href="{% get_static_prefix %}css/core_style.css">
+{% endblock head %}
+
+{% block custom_title %}
+
+{{block.super}}- Django
+{% endblock custom_title %}
+
+<!-- <title>Document</title> -->
+
+{% block bodyContent %}
+<p>Welcome to home page</p>
+
+<img src="{% static 'learn/images/predator.jpg' %}" style="width: 10%; height: 10%;">
+
+<h6>{{name}} {{data.m_name}} {{data.l_name}}</h6>
+
+{% if name == 'Dharmendra' %}
+<p>You have following skills</p>
+<ol>
+  {% for skill in backend_lang %}
+  <li>{{skill}}</li>
+  {% endfor %}
+</ol>
+<p>Your academics percentages(%)</p>
+<ul>
+  {% for class, percent in percentage.items %}
+  <li>{{class}} : {{percent}}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock bodyContent %}
+
+
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Route Param</title>
+</head>
+
+<body>
+  <button>
+    <a href="{% url 'parameter_method' data.user_id data.f_name %}" target="_blank">
+      Pass id & name
+    </a>
+  </button>
+  <button>
+    <a href="{% url 'json_data' data %}" target="_blank">
+      Pass json data
+    </a>
+  </button>
+  <button onclick='call_get_ajax()'>Call Get Ajax</button>
+  <button onclick='call_post_ajax()'>Call Post Ajax</button>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script type="text/javascript">
+    function call_get_ajax() {
+      let method = "GET";
+      let url = "{% url 'call_get_ajax' %}";
+      let data = {
+        f_name: "Dharmendra",
+        l_name: "Sharma",
+      }
+      call_ajax(method, url, data)
+    }
+
+    function call_post_ajax() {
+      let method = "POST";
+      let url = "{% url 'call_post_ajax' %}";
+      let data = {
+        f_name: "Dharmendra",
+        l_name: "Sharma",
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      }
+      call_ajax(method, url, data)
+    }
+
+    function call_ajax(method, url, data) {
+      $.ajax({
+        type: method,
+        url: url,
+        data: data,
+        dataType: "json",
+
+        //if received a response from the server
+        success: function (datas, textStatus, jqXHR) {
+          alert("success");
+        },
+
+        //If there was no resonse from the server
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.warn("=====error=====");
+        },
+
+        //capture the request before it was sent to server
+        beforeSend: function (jqXHR, settings) {
+          console.warn("=====beforeSend=====");
+        },
+
+        //this is called after the response or error functions are finished
+        //so that we can take some action
+        complete: function (jqXHR, textStatus) {
+          console.warn("=====complete=====");
+        }
+
+      });
+
+    }
+  </script>
+</body>
+
+</html>

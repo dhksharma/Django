@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% include 'layout/head.html' with course="Django" %}
+    {% block head %}
+    {% endblock head %}
+    {% block BodyStyle %}
+    {% endblock BodyStyle %}
+
+    <title>
+        {% block custom_title %}
+        Learn
+        {% endblock custom_title %}
+    </title>
+    
+</head>
+<body>
+    {% include 'layout/header.html' %}
+    {% include 'layout/sidebar.html' %}
+
+    {% block bodyContent %}
+    {% endblock bodyContent %}
+
+    {% include 'layout/footer.html' %}
+
+    {% include 'layout/script.html' %}
+    {% block bodyScript %}
+    {% endblock bodyScript %}
+
+</body>
+
+</html>
